@@ -19,7 +19,7 @@ fi
 BOLD='\033[0;1m'
 
 # check if jupyterlab is installed
-if ! command -v jupyter-lab > /dev/null 2>&1; then
+if ! command -v jupyter lab > /dev/null 2>&1; then
   # install jupyterlab
   check_available_installer
   printf "$${BOLD}Installing jupyterlab!\n"
@@ -46,8 +46,10 @@ cat $HOME/.local/share/jupyter/kernels/aicentre/kernel.json | jq -r \
 printf "➡️ updating kernelspec..."
 mv tmp.json $HOME/.local/share/jupyter/kernels/aicentre/kernel.json
 
-printf "🔌 Set git proxy"
+printf "🔌 Set git variables"
 git config --global http.proxy $http_proxy
+git config --global user.name $GIT_AUTHOR_NAME
+git config --global user.email $GIT_AUTHOR_EMAIL
 
 printf "👷 Starting jupyterlab in background..."
 printf "check logs at ${LOG_PATH}"
