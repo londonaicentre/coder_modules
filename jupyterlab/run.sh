@@ -36,8 +36,7 @@ else
   printf "%s\n\n" "🥳 jupyterlab is already installed"
 fi
 
-
-printf "⚠️ setting proxy vars..."
+printf "⚠️ setting proxy vars for kernel..."
 cat $HOME/.local/share/jupyter/kernels/aicentre/kernel.json | jq -r \
   --arg http_proxy "$http_proxy" \
   --arg https_proxy "$https_proxy" \
@@ -46,14 +45,15 @@ cat $HOME/.local/share/jupyter/kernels/aicentre/kernel.json | jq -r \
 
 printf "➡️ updating kernelspec..."
 mv tmp.json $HOME/.local/share/jupyter/kernels/aicentre/kernel.json
-# Removes the default kernelspec that does not have env setup
-$JUPYTERPATH/jupyter kernelspec remove python3 -y
+
+printf "🔌 Set git proxy"
+git config --global http.proxy $http_proxy
 
 printf "👷 Starting jupyterlab in background..."
 printf "check logs at ${LOG_PATH}"
 
 # Note the need to unset http proxy settings; as a result of python badness
-http_proxy= https_proxy= all_proxy=$http_proxy $JUPYTERPATH/jupyter-lab --no-browser \
+http_proxy= https_proxy= $JUPYTERPATH/jupyter-lab --no-browser \
   "$BASE_URL_FLAG" \
   --ServerApp.ip='*' \
   --ServerApp.port="${PORT}" \
