@@ -26,7 +26,7 @@ if ! command -v jupyter-lab > /dev/null 2>&1; then
   case $INSTALLER in
     uv)
       uv venv --seed
-      uv pip install ipykernel jupyterlab
+      uv pip install ipykernel jupyterlab pip jupyterlab-git
       uv run ipython kernel install --user --env VIRTUAL_ENV $(pwd)/.venv --name=aicentre \
         && printf "%s\n" "🥳 jupyterlab has been installed"
       JUPYTERPATH="$HOME/.venv/bin/"
