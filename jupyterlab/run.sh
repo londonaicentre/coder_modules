@@ -45,7 +45,7 @@ printf "👷 Starting jupyterlab in background..."
 printf "check logs at ${LOG_PATH}"
 
 # Note the need to unset http proxy settings; as a result of python badness
-http_proxy= https_proxy= $JUPYTERPATH/jupyter-lab --no-browser \
+$JUPYTERPATH/jupyter-lab --no-browser \
   "$BASE_URL_FLAG" \
   --ServerApp.ip='*' \
   --ServerApp.port="${PORT}" \
