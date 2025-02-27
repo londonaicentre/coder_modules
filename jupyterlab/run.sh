@@ -29,12 +29,13 @@ if ! command -v $HOME/.venv/bin/jupyter > /dev/null 2>&1; then
       uv pip install ipykernel jupyterlab pip jupyterlab-git
       uv run ipython kernel install --user --env VIRTUAL_ENV $(pwd)/.venv --name=aicentre \
         && printf "%s\n" "🥳 jupyterlab has been installed"
-      JUPYTERPATH="$HOME/.venv/bin/"
       ;;
   esac
 else
   printf "%s\n\n" "🥳 jupyterlab is already installed"
 fi
+
+JUPYTERPATH="$HOME/.venv/bin/"
 
 printf "🔌 Set git variables"
 git config --global http.proxy $http_proxy
